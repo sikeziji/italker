@@ -1,0 +1,69 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath "com.jakewharton:butterknife-gradle-plugin:10.2.1"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://www.jitpack.io" }
+        maven { url 'https://maven.google.com' }
+        //个推私有Maven URL地址
+        maven { url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    //版本号相关
+    versionCode = 1;
+    versionName = '1.0.0';
+
+    //相关依赖版本
+    appcompatVersion="1.1.0"
+    //recyclerview
+    recyclerviewVersion = '1.1.0'
+    //butterknife
+    butterknifeVersion = '10.2.1'
+    //genius
+    geniusVersion = '2.1.1'
+    //glide
+    glideVersion = '4.11.0'
+    // circleimage
+    circleimageviewVersion = '2.2.0'
+    // ucrop
+    ucropVersion = "2.2.0-native"
+    //easyPM
+    easyPMVersion = "0.3.0"
+    //oss
+    ossVersion = '2.9.1'
+
+    //gson
+    gsonVersion = '2.8.0'
+    // retrofit
+    retrofitVersion = '2.1.0'
+    //getui
+    getuiVersion = '2.13.0.0'
+    //dbflow
+    dbflowVersion = "4.0.4"
+    //airpanel
+    airpanelVersion = "1.4.0"
+    //lame
+    lameVersion = "1.2.0"
+}

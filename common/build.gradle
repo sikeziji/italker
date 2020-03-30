@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion VERSION_COMPILE_SDK as int
+    defaultConfig {
+        minSdkVersion VERSION_MIN_SDK as int
+        targetSdkVersion VERSION_TARGET_SDK as int
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    api "androidx.appcompat:appcompat:$rootProject.ext.appcompatVersion"
+    api "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
+    api 'com.google.android.material:material:1.0.0'
+    api "net.qiujuer.genius:ui:$rootProject.ext.geniusVersion"
+    api "net.qiujuer.genius:res:$rootProject.ext.geniusVersion"
+    api "de.hdodenhof:circleimageview:$rootProject.ext.circleimageviewVersion"
+    api "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
+    api "net.qiujuer.genius:kit-handler:$rootProject.ext.geniusVersion"
+    api "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+
+    // 空气面板
+    api "net.qiujuer.widget:airpanel:$rootProject.ext.airpanelVersion"
+    // Lame 录音 MP3 转码器
+    api "net.qiujuer.lame:lame:$rootProject.ext.lameVersion"
+
+    api "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
+
+    testImplementation 'junit:junit:4.13'
+
+    api project(':lang')
+    api project(':face-res')
+}
