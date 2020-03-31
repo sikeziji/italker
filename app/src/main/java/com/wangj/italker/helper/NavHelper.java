@@ -84,6 +84,7 @@ public class NavHelper<T> {
             }
         }
         currentTab = tab;
+        doTabChanged(currentTab, oldTab);
     }
 
     private void doTabChanged(Tab<T> newTab, Tab<T> oldTab) {

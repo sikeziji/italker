@@ -4,12 +4,11 @@
     android:layout_height="match_parent">
 
 
-    <TextView
+    <com.wangj.common.widget.GalleryView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:text="Activity" />
+        android:id="@+id/galleyView"
+        android:padding="1dp"
+        />
 
 </LinearLayout>

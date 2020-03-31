@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+@SuppressWarnings("unchecked")
 public abstract class RecyclerAdapter<Data>
         extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder<Data>>
         implements View.OnClickListener, View.OnLongClickListener, AdapterCallback<Data> {
@@ -103,6 +104,20 @@ public abstract class RecyclerAdapter<Data>
         holder.bind(data);
     }
 
+
+    @Override
+    public void update(Data data, ViewHolder<Data> holder) {
+        int pos = holder.getAdapterPosition();
+        if (pos>=0) {
+            //移除当前位置数据
+            mDataList.remove(pos);
+            //添加一个更新后的数据
+            mDataList.add(pos,data);
+            //更新当前位置数据有更新
+            notifyItemChanged(pos);
+        }
+    }
+
     /**
      * 得到当前集合的数据量
      */
@@ -131,7 +146,7 @@ public abstract class RecyclerAdapter<Data>
             //得到ViewHolder当前对应的适配器中的坐标
             int pos = viewHolder.getAdapterPosition();
             //回调方法
-            this.mListener.onItemLong(viewHolder, mDataList.get(pos));
+            this.mListener.onItemLongClick(viewHolder, mDataList.get(pos));
         }
         return false;
     }
@@ -155,7 +170,8 @@ public abstract class RecyclerAdapter<Data>
         void onItemClick(RecyclerAdapter.ViewHolder<Data> holder, Data data);
 
         //当cell长按时触发
-        void onItemLong(RecyclerAdapter.ViewHolder<Data> holder, Data data);
+        void onItemLongClick(RecyclerAdapter.ViewHolder<Data> holder, Data data);
+
     }
 
     /**
@@ -261,7 +277,22 @@ public abstract class RecyclerAdapter<Data>
                 this.mCallback.update(data, this);
             }
         }
+    }
 
+    /**
+     * 对回调接口做一次实现
+     * @param <Data>
+     */
+    public static abstract class AdapterListenerImpl<Data> implements AdapterListener<Data> {
 
+        @Override
+        public void onItemClick(ViewHolder<Data> holder, Data data) {
+
+        }
+
+        @Override
+        public void onItemLongClick(ViewHolder<Data> holder, Data data) {
+
+        }
     }
 }
