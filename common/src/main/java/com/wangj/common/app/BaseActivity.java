@@ -23,14 +23,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             setContentView(layId);
             initBefore();
             initWidget();
-            InitData();
+            initData();
         } else {
             finish();
         }
 
     }
 
-    protected void InitData() {
+    protected void initData() {
     }
 
 

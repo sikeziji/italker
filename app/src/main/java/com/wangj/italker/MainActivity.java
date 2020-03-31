@@ -1,8 +1,10 @@
 package com.wangj.italker;
 
 import android.graphics.drawable.Drawable;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -18,11 +20,19 @@ import com.wangj.common.widget.PortraitView;
 import com.wangj.italker.frags.main.ActivityFragment;
 import com.wangj.italker.frags.main.ContactFragment;
 import com.wangj.italker.frags.main.GroupFragment;
+import com.wangj.italker.helper.NavHelper;
+
+import net.qiujuer.genius.ui.Ui;
+import net.qiujuer.genius.ui.widget.FloatActionButton;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener
+        , NavHelper.OnTabChangeListener<Integer> {
 
     @BindView(R.id.appbar)
     View mLayAppbar;
@@ -39,6 +49,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     @BindView(R.id.navigation)
     BottomNavigationView mNavigation;
 
+    @BindView(R.id.btn_action)
+    FloatActionButton mAction;
+
+    private NavHelper<Integer> mNavhelper;
+
 
     @Override
     protected int getContentLayoutId() {
@@ -48,7 +63,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     @Override
     protected void initWidget() {
         super.initWidget();
-
+        //初始化工具类
+        mNavhelper = new
+                NavHelper(this, R.id.lay_container, getSupportFragmentManager(), this);
+        mNavhelper.add(R.id.action_home, new NavHelper.Tab<>(ActivityFragment.class, R.string.title_home))
+                .add(R.id.action_group, new NavHelper.Tab<>(GroupFragment.class, R.string.title_group))
+                .add(R.id.action_contact, new NavHelper.Tab<>(ContactFragment.class, R.string.title_contact));
 
         // 添加对底部按钮点击的监听
         mNavigation.setOnNavigationItemSelectedListener(this);
@@ -75,8 +95,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     }
 
     @Override
-    protected void InitData() {
-        super.InitData();
+    protected void initData() {
+        super.initData();
+        //从导航中接管Menu，然后手动调用第一次点击
+        Menu menu = mNavigation.getMenu();
+
+        menu.performIdentifierAction(R.id.action_home,0);
+
     }
 
 
@@ -93,39 +118,50 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return mNavhelper.performClickMenu(menuItem.getItemId());
+    }
 
-        if (menuItem.getItemId() == R.id.action_home) {
 
-            //更新Title
-            mTitle.setText(menuItem.getTitle());
+    /**
+     * NavHelper 处理后回调的方法
+     *
+     * @param newTab
+     * @param oldTab
+     */
+    @Override
+    public void onTabChanged(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
 
-            ActivityFragment activityFragment = new ActivityFragment();
+        //从额外字段中获取信息
+        mTitle.setText(newTab.extra);
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.lay_container, activityFragment)
-                    .commit();
-        } else if (menuItem.getItemId() == R.id.action_group) {
-            mTitle.setText(menuItem.getTitle());
-
-            GroupFragment groupFragment = new GroupFragment();
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.lay_container, groupFragment)
-                    .commit();
-        } else if (menuItem.getItemId() == R.id.action_contact) {
-            mTitle.setText(menuItem.getTitle());
-
-            ContactFragment contactFragment = new ContactFragment();
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.lay_container, contactFragment)
-                    .commit();
+        // 对浮动按钮进行隐藏与显示的动画
+        float transY = 0;
+        float rotation = 0;
+        if (Objects.equals(newTab.extra, R.string.title_home)) {
+            // 主界面时隐藏
+            transY = Ui.dipToPx(getResources(), 76);
+        } else {
+            // transY 默认为0 则显示
+            if (Objects.equals(newTab.extra, R.string.title_group)) {
+                // 群
+                mAction.setImageResource(R.drawable.ic_group_add);
+                rotation = -360;
+            } else {
+                // 联系人
+                mAction.setImageResource(R.drawable.ic_contact_add);
+                rotation = 360;
+            }
         }
 
+        // 开始动画
+        // 旋转，Y轴位移，弹性差值器，时间
+        mAction.animate()
+                .rotation(rotation)
+                .translationY(transY)
+                .setInterpolator(new AnticipateOvershootInterpolator(1))
+                .setDuration(480)
+                .start();
 
-        return true;
+
     }
 }

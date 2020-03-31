@@ -249,7 +249,7 @@ public abstract class RecyclerAdapter<Data>
          *
          * @param data 绑定的数据
          */
-        abstract void OnBind(Data data);
+        protected abstract void OnBind(Data data);
 
         /**
          * Holder自己对自己对应的Data进行更新操作
