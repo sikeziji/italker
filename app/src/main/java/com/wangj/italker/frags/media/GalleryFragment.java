@@ -31,7 +31,6 @@ public class GalleryFragment extends BottomSheetDialogFragment implements Galler
     }
 
     public GalleryFragment() {
-
     }
 
     public GalleryFragment(OnSelectedListener listener) {
@@ -101,7 +100,7 @@ public class GalleryFragment extends BottomSheetDialogFragment implements Galler
     }
 
 
-    private static class TransStatusBootomSheetDialog extends BottomSheetDialog {
+    public static class TransStatusBootomSheetDialog extends BottomSheetDialog {
 
         public TransStatusBootomSheetDialog(@NonNull Context context) {
             super(context);

@@ -1,5 +1,7 @@
-package com.wangj.italker;
+package com.wangj.italker.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +19,9 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.wangj.common.app.BaseActivity;
 import com.wangj.common.widget.PortraitView;
+import com.wangj.italker.R;
 import com.wangj.italker.activity.AccountActivity;
+import com.wangj.italker.assist.PermissionsFragment;
 import com.wangj.italker.frags.main.ActivityFragment;
 import com.wangj.italker.frags.main.ContactFragment;
 import com.wangj.italker.frags.main.GroupFragment;
@@ -61,6 +65,15 @@ public class MainActivity extends BaseActivity
         return R.layout.activity_main;
     }
 
+    /**
+     * MainActivity 显示的入口
+     *
+     * @param context
+     */
+    public static void show(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
+
     @Override
     protected void initWidget() {
         super.initWidget();
@@ -93,6 +106,8 @@ public class MainActivity extends BaseActivity
 
                     }
                 });
+
+
     }
 
     @Override

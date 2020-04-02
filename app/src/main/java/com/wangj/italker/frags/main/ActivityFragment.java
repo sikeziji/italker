@@ -1,15 +1,10 @@
 package com.wangj.italker.frags.main;
 
 import com.wangj.common.app.BaseFragment;
-import com.wangj.common.widget.GalleryView;
 import com.wangj.italker.R;
-
-import butterknife.BindView;
 
 public class ActivityFragment extends BaseFragment {
 
-    @BindView(R.id.galleryView)
-    GalleryView galleryView;
 
     @Override
     protected int getContentLayoutId() {
@@ -22,12 +17,5 @@ public class ActivityFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-
-        galleryView.setup(getLoaderManager(), new GalleryView.SelectedChangeListener() {
-            @Override
-            public void onSelectedCountChanged(int count) {
-
-            }
-        });
     }
 }
