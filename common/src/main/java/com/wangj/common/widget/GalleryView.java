@@ -60,6 +60,7 @@ public class GalleryView extends RecyclerView {
      * 初始化
      */
     private void initView() {
+        System.out.println("初始化Gall成功");
         setLayoutManager(new GridLayoutManager(getContext(), 4));
         //初始化适配器
         setAdapter(mAdapter);

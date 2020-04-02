@@ -14,7 +14,7 @@ public class ActivityFragment extends BaseFragment {
     @Override
     protected int getContentLayoutId() {
 
-
+        System.out.println("加载界面");
 
         return R.layout.fragment_activity;
     }
@@ -23,11 +23,11 @@ public class ActivityFragment extends BaseFragment {
     protected void initData() {
         super.initData();
 
-//        galleryView.setup(getLoaderManager(), new GalleryView.SelectedChangeListener() {
-//            @Override
-//            public void onSelectedCountChanged(int count) {
-//
-//            }
-//        });
+        galleryView.setup(getLoaderManager(), new GalleryView.SelectedChangeListener() {
+            @Override
+            public void onSelectedCountChanged(int count) {
+
+            }
+        });
     }
 }
