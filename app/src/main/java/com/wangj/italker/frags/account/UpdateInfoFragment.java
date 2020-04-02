@@ -4,6 +4,7 @@ package com.wangj.italker.frags.account;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -12,6 +13,8 @@ import com.wangj.common.app.Application;
 import com.wangj.common.app.BaseFragment;
 import com.wangj.common.widget.GalleryView;
 import com.wangj.common.widget.PortraitView;
+import com.wangj.factory.Factory;
+import com.wangj.factory.net.UploadHelper;
 import com.wangj.italker.R;
 import com.wangj.italker.frags.media.GalleryFragment;
 import com.yalantis.ucrop.UCrop;
@@ -83,10 +86,23 @@ public class UpdateInfoFragment extends BaseFragment {
 
     private void loadPortrait(Uri resultUri) {
 
+
         Glide.with(this)
                 .asBitmap()
                 .load(resultUri)
                 .centerCrop()
                 .into(mPortraitView);
+
+        //对图片进行上传
+        String localPath = resultUri.getPath();
+
+
+        Factory.runOnAsync(new Runnable() {
+            @Override
+            public void run() {
+                String url = UploadHelper.uploadPortrait(localPath);
+                System.out.println(url);
+            }
+        });
     }
 }
