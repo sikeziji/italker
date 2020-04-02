@@ -17,6 +17,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.wangj.common.app.BaseActivity;
 import com.wangj.common.widget.PortraitView;
+import com.wangj.italker.activity.AccountActivity;
 import com.wangj.italker.frags.main.ActivityFragment;
 import com.wangj.italker.frags.main.ContactFragment;
 import com.wangj.italker.frags.main.GroupFragment;
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity
         //从导航中接管Menu，然后手动调用第一次点击
         Menu menu = mNavigation.getMenu();
 
-        menu.performIdentifierAction(R.id.action_home,0);
+        menu.performIdentifierAction(R.id.action_home, 0);
 
     }
 
@@ -113,6 +114,7 @@ public class MainActivity extends BaseActivity
 
     @OnClick(R.id.btn_action)
     void onActionClick() {
+        AccountActivity.show(this);
 
     }
 

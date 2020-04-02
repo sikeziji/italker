@@ -8,7 +8,7 @@ import butterknife.BindView;
 
 public class ActivityFragment extends BaseFragment {
 
-    @BindView(R.id.galleyView)
+    @BindView(R.id.galleryView)
     GalleryView galleryView;
 
     @Override

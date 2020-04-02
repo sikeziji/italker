@@ -7,7 +7,7 @@
     <com.wangj.common.widget.GalleryView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/galleyView"
+        android:id="@+id/galleryView"
         android:padding="1dp"
         />
 
