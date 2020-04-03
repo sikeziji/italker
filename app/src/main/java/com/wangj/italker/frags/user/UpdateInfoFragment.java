@@ -1,4 +1,4 @@
-package com.wangj.italker.frags.account;
+package com.wangj.italker.frags.user;
 
 
 import android.content.Intent;
