@@ -25,7 +25,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".LaunchActivity"
-            android:label="@string/title_activity_launch">
+            android:label="@string/title_activity_launch"
+            android:theme="@style/AppTheme.TransStatusBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

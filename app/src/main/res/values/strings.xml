@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">慕聊</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" tools:ignore="ExtraTranslation">Hello blank fragment</string>
     <string name="title_activity_launch">@string/app_name</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="title_activity_message">MessageActivity</string>
